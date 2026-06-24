@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Enablement Bootcamp · GFP &amp; Credit Risk</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:        #002991;
+    --navy-deep:   #001a6b;
+    --accent:      #60CDFF;
+    --accent-dim:  rgba(96,205,255,0.13);
+    --accent-bdr:  rgba(96,205,255,0.28);
+    --sky:         #B5D4F4;
+    --white:       #ffffff;
+    --off:         #f5f8fc;
+    --border:      #dde5f0;
+    --text:        #0d1b36;
+    --mid:         #4a5a7a;
+    --light:       #8898b8;
+    --p1-bg:       #e6f0fb;
+    --p1-tx:       #0c447c;
+    --p2-bg:       #e0f4ee;
+    --p2-tx:       #085041;
+    --cr-bg:       #fff5e6;
+    --cr-tx:       #7a3d00;
+    --cr-bdr:      #f5c98a;
+    --r:           10px;
+    --font:        -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+
+  html, body {
+    width: 100%;
+    font-family: var(--font);
+    background: #eef3fa;
+    color: var(--text);
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────── */
+  .hero {
+    width: 100%;
+    background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 55%, #0042cc 100%);
+    padding: 72px 8% 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 55% at 50% 110%, rgba(96,205,255,0.11) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eye {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .hero-eye::before, .hero-eye::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--accent-bdr);
+  }
+  .hero h1 {
+    font-size: clamp(38px, 5.5vw, 62px);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 22px;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub {
+    font-size: clamp(16px, 1.5vw, 20px);
+    color: var(--sky);
+    line-height: 1.8;
+    max-width: 72%;
+    margin: 0 auto 34px;
+  }
+  .hero-tags {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-tag {
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-bdr);
+    border-radius: 100px;
+    color: var(--accent);
+    font-size: clamp(13px, 1vw, 16px);
+    font-weight: 500;
+    padding: 8px 22px;
+  }
+
+  /* ── PAGE BODY ────────────────────────────────────────── */
+  .page {
+    width: 100%;
+    padding: 0 5% 80px;
+  }
+
+  /* ── HOW IT WORKS ─────────────────────────────────────── */
+  .strip {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 30px 0 0;
+    overflow: hidden;
+  }
+  .strip-item {
+    padding: 28px 32px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .strip-item:last-child { border-right: none; }
+  .strip-step {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--light);
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .strip-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .strip-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+  .strip-desc {
+    font-size: 15px;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  /* ── SECTION ──────────────────────────────────────────── */
+  .section { margin-top: 44px; }
+  .section-hd {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .badge {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 18px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .b-p1 { background: var(--p1-bg); color: var(--p1-tx); }
+  .b-p2 { background: var(--p2-bg); color: var(--p2-tx); }
+  .section-title { font-size: 24px; font-weight: 600; color: var(--text); }
+  .section-sub { font-size: 15px; color: var(--mid); margin-top: 4px; }
+
+  /* ── OFFICE HOURS BANNER ──────────────────────────────── */
+  .oh-banner {
+    background: linear-gradient(135deg, rgba(0,41,145,0.04), rgba(96,205,255,0.07));
+    border: 1px solid rgba(96,205,255,0.22);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--r);
+    padding: 18px 26px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .oh-banner-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .oh-banner-title { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .oh-banner-desc { font-size: 16px; color: var(--mid); line-height: 1.7; }
+
+  /* ── SESSION GRID ─────────────────────────────────────── */
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 28px;
+  }
+
+  /* ── SESSION ROW (dot + card) ─────────────────────────── */
+  .s-row {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+  }
+  .s-conn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 22px;
+    flex-shrink: 0;
+  }
+  .s-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--navy);
+    flex-shrink: 0;
+    margin-top: 22px;
+    z-index: 1;
+    box-shadow: 0 0 0 4px rgba(0,41,145,0.09);
+  }
+  .s-dot.cr { background: #c47000; box-shadow: 0 0 0 4px rgba(196,112,0,0.12); }
+  .s-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, var(--navy), var(--sky));
+    opacity: 0.3;
+    min-height: 12px;
+  }
+
+  /* ── SESSION CARD ─────────────────────────────────────── */
+  .s-card {
+    flex: 1;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .s-card:hover {
+    box-shadow: 0 6px 24px rgba(0,41,145,0.08);
+    border-color: #c0d4ee;
+  }
+  .s-card.credit {
+    border-color: var(--cr-bdr);
+    border-left: 3px solid #e8900a;
+    max-width: 54%;
+  }
+  .s-card.credit:hover { border-left-color: #e8900a; }
+
+  /* Credit row — full width */
+  .cr-row {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  /* ── CARD META ────────────────────────────────────────── */
+  .s-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 9px;
+    flex-wrap: wrap;
+  }
+  .s-lbl {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--navy);
+    padding: 3px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+  .s-lbl.cr-lbl { background: #c47000; color: #fff; }
+  .s-proposed {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cr-tx);
+    background: var(--cr-bg);
+    border: 1px solid var(--cr-bdr);
+    border-radius: 100px;
+    padding: 3px 12px;
+  }
+  .s-aud {
+    font-size: 12px;
+    color: var(--light);
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px 12px;
+  }
+
+  .s-title { font-size: 19px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
+  .s-dur { font-size: 14px; color: var(--light); margin-bottom: 14px; }
+
+  /* ── MODERATOR ────────────────────────────────────────── */
+  .mod-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 15px;
+  }
+  .mod-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--p1-bg);
+    border: 1px solid #b8cce8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .mod-lbl {
+    font-size: 11px;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .mod-name { font-size: 16px; font-weight: 600; color: var(--mid); }
+  .mod-name.tbd { color: var(--light); font-weight: 400; font-style: italic; }
+
+  .s-desc { font-size: 15px; color: var(--mid); line-height: 1.75; margin-bottom: 17px; }
+
+  /* ── SESSION LINKS ────────────────────────────────────── */
+  .s-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 13px;
+  }
+  .s-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 7px;
+    padding: 7px 15px;
+    text-decoration: none;
+    border: 1px solid;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .s-link.join { color: var(--navy); background: var(--p1-bg); border-color: #a8c4e8; }
+  .s-link.join:hover { background: #d4e6f8; }
+  .s-link.tbd { color: var(--light); background: #f5f5f5; border-color: #e0e0e0; pointer-events: none; }
+
+  /* ── OFFICE HOURS ROW ─────────────────────────────────── */
+  .oh-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .oh-left { display: flex; align-items: center; gap: 8px; }
+  .oh-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.55;
+    flex-shrink: 0;
+  }
+  .oh-label { font-size: 14px; color: var(--light); font-weight: 500; }
+  .oh-date  { font-size: 14px; color: var(--light); }
+  .oh-btns  { display: flex; gap: 7px; }
+  .oh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 7px;
+    padding: 5px 13px;
+    text-decoration: none;
+    border: 1px solid #e4eaf4;
+    color: var(--light);
+    background: #f8f9fc;
+    transition: background 0.15s, color 0.15s;
+  }
+  .oh-btn:hover { background: var(--p1-bg); color: var(--navy); border-color: #a8c4e8; }
+
+  /* ── ROLE GRID ────────────────────────────────────────── */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 22px 24px;
+    transition: box-shadow 0.2s;
+  }
+  .role-card:hover { box-shadow: 0 4px 18px rgba(0,41,145,0.08); }
+  .role-hd {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .role-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    flex-shrink: 0;
+  }
+  .ico-ds  { background: #e6f0fb; }
+  .ico-ml  { background: #e0f4ee; }
+  .ico-pm  { background: #fff3e6; }
+  .ico-eng { background: #f0e8fb; }
+  .role-name { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .role-abbr { font-size: 13px; color: var(--light); margin-top: 2px; }
+  .role-sessions { display: flex; flex-direction: column; gap: 12px; }
+  .role-session  { display: flex; gap: 10px; align-items: flex-start; }
+  .s-num {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--light);
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px 9px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .s-stitle { font-size: 15px; font-weight: 600; color: var(--text); }
+  .s-tbd {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--light);
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 2px 9px;
+    margin-top: 4px;
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────── */
+  .footer {
+    margin-top: 50px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .footer-org  { font-size: 18px; font-weight: 600; color: var(--navy); }
+  .footer-sub  { font-size: 14px; color: var(--light); margin-top: 3px; }
+  .footer-contact { font-size: 15px; color: var(--mid); }
+  .footer-contact a { color: var(--navy); text-decoration: none; font-weight: 500; }
+  .footer-contact a:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ───────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .sessions-grid { grid-template-columns: 1fr; }
+    .cr-row { grid-column: unset; }
+    .s-card.credit { max-width: 100%; }
+    .role-grid { grid-template-columns: 1fr 1fr; }
+    .strip { grid-template-columns: 1fr; }
+    .strip-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .strip-item:last-child { border-bottom: none; }
+    .hero { padding: 52px 6% 44px; }
+    .hero-sub { max-width: 92%; }
+    .page { padding: 0 4% 60px; }
+  }
+  @media (max-width: 600px) {
+    .role-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 32px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .s-card, .role-card, .s-link, .oh-btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ───────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-eye">GFP &amp; Credit Risk · 2026</div>
+  <h1>AI Enablement<br><em>Bootcamp</em></h1>
+  <p class="hero-sub">This bootcamp is designed for GFP and Credit Risk professionals who want to go beyond the basics. We work with real tools and real use cases from within our own teams — covering foundations, automation, agents, and the AI already built inside the teams.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Phase 1 · 4 General Sessions</span>
+    <span class="hero-tag">Phase 2 · Role-Specific Deep Dives</span>
+    <span class="hero-tag">Hands-On Practice</span>
+  </div>
+</div>
+
+<!-- ── PAGE BODY ───────────────────────────────────────── -->
+<div class="page">
+
+  <!-- HOW IT WORKS -->
+  <div class="strip">
+    <div class="strip-item">
+      <div class="strip-step">Phase 1</div>
+      <div class="strip-num">4 Sessions</div>
+      <div class="strip-label">General Bootcamp</div>
+      <div class="strip-desc">Weekly live sessions open to all GFP &amp; Credit Risk employees</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-step">Phase 2</div>
+      <div class="strip-num">Role Tracks</div>
+      <div class="strip-label">Deep Dives</div>
+      <div class="strip-desc">2 sessions per role family — invite sent by email</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-step">Outcome</div>
+      <div class="strip-num">Apply</div>
+      <div class="strip-label">Build &amp; Experiment</div>
+      <div class="strip-desc">Apply what you've learned to real GFP and Credit Risk work</div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 1 ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-hd">
+      <span class="badge b-p1">Phase 1</span>
+      <div>
+        <div class="section-title">General Sessions — 4 Weeks</div>
+        <div class="section-sub">Weekly live sessions · All GFP &amp; Credit Risk employees · September 2026</div>
+      </div>
+    </div>
+
+    <div class="oh-banner">
+      <div class="oh-banner-icon">💡</div>
+      <div>
+        <div class="oh-banner-title">Office Hours — How it works</div>
+        <div class="oh-banner-desc">Each session is followed by a dedicated Office Hours slot with the session expert. Please submit your question in advance — the expert reviews all submissions beforehand so every Office Hour is focused and useful.</div>
+      </div>
+    </div>
+
+    <div class="sessions-grid">
+
+      <!-- Session 1 -->
+      <div class="s-row">
+        <div class="s-conn"><div class="s-dot"></div><div class="s-line"></div></div>
+        <div class="s-card">
+          <div class="s-meta">
+            <span class="s-lbl">Session 1</span>
+            <span class="s-aud">Everyone · No technical background required</span>
+          </div>
+          <div class="s-title">GenAI Foundations &amp; PayPal Tools</div>
+          <div class="s-dur">2h session + self-study</div>
+          <div class="mod-block">
+            <div class="mod-avatar">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name">Bibhash Chakrabarty</div></div>
+          </div>
+          <div class="s-desc">A clear mental model of how AI works — AI evolution, how language models work (tokens, embeddings, transformers), and the three ways to deploy AI: RAG, Fine-Tuning, and Agentic AI. Introduces the PayPal AI toolkit — ChatGPT Enterprise, Claude, Cosmos, GitHub Copilot — and closes with the S.M.A.R.T.R. prompting framework with live GFP-specific examples.</div>
+          <div class="s-links">
+            <a class="s-link join" href="#">📅 Join session</a>
+            <a class="s-link tbd" href="#">📊 Slides — coming soon</a>
+            <a class="s-link tbd" href="#">▶ Recording — coming soon</a>
+          </div>
+          <div class="oh-row">
+            <div class="oh-left"><div class="oh-dot"></div><span class="oh-label">Office Hours</span><span class="oh-date">· Date TBD</span></div>
+            <div class="oh-btns">
+              <a class="oh-btn" href="#">📅 Join</a>
+              <a class="oh-btn" href="#">✏️ Submit your question</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session 2 -->
+      <div class="s-row">
+        <div class="s-conn"><div class="s-dot"></div><div class="s-line"></div></div>
+        <div class="s-card">
+          <div class="s-meta">
+            <span class="s-lbl">Session 2</span>
+            <span class="s-aud">Everyone · No code required</span>
+          </div>
+          <div class="s-title">Claude Skills &amp; Automations</div>
+          <div class="s-dur">2h session + hands-on practice</div>
+          <div class="mod-block">
+            <div class="mod-avatar">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name tbd">To be confirmed</div></div>
+          </div>
+          <div class="s-desc">Hands-on session where participants build something. Create a Custom GPT in ChatGPT and a Skill in Claude — through a simple interface, no coding needed. Connect AI to daily work tools (Outlook, Jira, Slack, SharePoint) via connectors. Leave with a working AI tool tailored to a task you do regularly.</div>
+          <div class="s-links">
+            <a class="s-link join" href="#">📅 Join session</a>
+            <a class="s-link tbd" href="#">📊 Slides — coming soon</a>
+            <a class="s-link tbd" href="#">▶ Recording — coming soon</a>
+          </div>
+          <div class="oh-row">
+            <div class="oh-left"><div class="oh-dot"></div><span class="oh-label">Office Hours</span><span class="oh-date">· Date TBD</span></div>
+            <div class="oh-btns">
+              <a class="oh-btn" href="#">📅 Join</a>
+              <a class="oh-btn" href="#">✏️ Submit your question</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session 3 -->
+      <div class="s-row">
+        <div class="s-conn"><div class="s-dot"></div><div class="s-line"></div></div>
+        <div class="s-card">
+          <div class="s-meta">
+            <span class="s-lbl">Session 3</span>
+            <span class="s-aud">Technical · SQL or Python comfort recommended</span>
+          </div>
+          <div class="s-title">Claude Code &amp; Building Agents</div>
+          <div class="s-dur">2h session + hands-on practice</div>
+          <div class="mod-block">
+            <div class="mod-avatar">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name">Ariel Friedlander</div></div>
+          </div>
+          <div class="s-desc">Introduces Claude Code — an agentic coding tool that lives in your terminal and writes, runs, and fixes code autonomously. Covers key Claude Code commands, connecting to BigQuery and internal data sources, and designing multi-step agent workflows. Live demo based on a real GFP fraud investigation scenario.</div>
+          <div class="s-links">
+            <a class="s-link join" href="#">📅 Join session</a>
+            <a class="s-link tbd" href="#">📊 Slides — coming soon</a>
+            <a class="s-link tbd" href="#">▶ Recording — coming soon</a>
+          </div>
+          <div class="oh-row">
+            <div class="oh-left"><div class="oh-dot"></div><span class="oh-label">Office Hours</span><span class="oh-date">· Date TBD</span></div>
+            <div class="oh-btns">
+              <a class="oh-btn" href="#">📅 Join</a>
+              <a class="oh-btn" href="#">✏️ Submit your question</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session 4 -->
+      <div class="s-row">
+        <div class="s-conn"><div class="s-dot"></div><div class="s-line"></div></div>
+        <div class="s-card">
+          <div class="s-meta">
+            <span class="s-lbl">Session 4</span>
+            <span class="s-aud">Technical · GFP specialists</span>
+          </div>
+          <div class="s-title">Agentic Tools for GFP — Fraud, Rules &amp; Cases</div>
+          <div class="s-dur">2h session + project</div>
+          <div class="mod-block">
+            <div class="mod-avatar">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name tbd">To be confirmed</div></div>
+          </div>
+          <div class="s-desc">A deep dive into AI tools already built within GFP — Lumens, DetectiBot, FraudScreener, Analysis Agent — with live demos of each. Covers agentic AI for fraud pattern detection, rule creation and documentation, rule monitoring and alerting, and case analysis. Participants leave with a concrete action plan for one real workflow to automate.</div>
+          <div class="s-links">
+            <a class="s-link join" href="#">📅 Join session</a>
+            <a class="s-link tbd" href="#">📊 Slides — coming soon</a>
+            <a class="s-link tbd" href="#">▶ Recording — coming soon</a>
+          </div>
+          <div class="oh-row">
+            <div class="oh-left"><div class="oh-dot"></div><span class="oh-label">Office Hours</span><span class="oh-date">· Date TBD</span></div>
+            <div class="oh-btns">
+              <a class="oh-btn" href="#">📅 Join</a>
+              <a class="oh-btn" href="#">✏️ Submit your question</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session 4.2 — Credit Risk (full width) -->
+      <div class="cr-row">
+        <div class="s-conn"><div class="s-dot cr"></div></div>
+        <div class="s-card credit">
+          <div class="s-meta">
+            <span class="s-lbl cr-lbl">Session 4.2</span>
+            <span class="s-aud">Technical · Credit Risk specialists</span>
+            <span class="s-proposed">⚡ Proposed — pending discussion</span>
+          </div>
+          <div class="s-title">AI for Credit Risk — Models, Policy &amp; Decision Intelligence</div>
+          <div class="s-dur">2h session + project</div>
+          <div class="mod-block">
+            <div class="mod-avatar">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name tbd">To be confirmed</div></div>
+          </div>
+          <div class="s-desc">A Credit Risk-specific applied session covering AI for credit rule creation and documentation, risk model explainability, regulatory and policy document review, and credit case analysis. Mirrors the structure of Session 4 but grounded entirely in Credit Risk workflows and real team use cases.</div>
+          <div class="s-links">
+            <a class="s-link tbd" href="#">📅 Join session — TBD</a>
+            <a class="s-link tbd" href="#">📊 Slides — coming soon</a>
+            <a class="s-link tbd" href="#">▶ Recording — coming soon</a>
+          </div>
+          <div class="oh-row">
+            <div class="oh-left"><div class="oh-dot"></div><span class="oh-label">Office Hours</span><span class="oh-date">· Date TBD</span></div>
+            <div class="oh-btns">
+              <a class="oh-btn" href="#">📅 Join</a>
+              <a class="oh-btn" href="#">✏️ Submit your question</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-hd">
+      <span class="badge b-p2">Phase 2</span>
+      <div>
+        <div class="section-title">Role-Specific Deep Dives</div>
+        <div class="section-sub">Topics confirmed after pre-survey · Invitations sent by email to each role family</div>
+      </div>
+    </div>
+
+    <div class="role-grid">
+
+      <div class="role-card">
+        <div class="role-hd">
+          <div class="role-icon ico-ds">📊</div>
+          <div><div class="role-name">Decision Scientists</div><div class="role-abbr">DS Track · 2 sessions</div></div>
+        </div>
+        <div class="role-sessions">
+          <div class="role-session"><span class="s-num">S1</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+          <div class="role-session"><span class="s-num">S2</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+        </div>
+      </div>
+
+      <div class="role-card">
+        <div class="role-hd">
+          <div class="role-icon ico-ml">🤖</div>
+          <div><div class="role-name">Machine Learning — GFP</div><div class="role-abbr">ML GFP Track · 2 sessions</div></div>
+        </div>
+        <div class="role-sessions">
+          <div class="role-session"><span class="s-num">S1</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+          <div class="role-session"><span class="s-num">S2</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+        </div>
+      </div>
+
+      <div class="role-card">
+        <div class="role-hd">
+          <div class="role-icon ico-ml">🤖</div>
+          <div><div class="role-name">Machine Learning — Credit</div><div class="role-abbr">ML Credit Track · 2 sessions</div></div>
+        </div>
+        <div class="role-sessions">
+          <div class="role-session"><span class="s-num">S1</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+          <div class="role-session"><span class="s-num">S2</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+        </div>
+      </div>
+
+      <div class="role-card">
+        <div class="role-hd">
+          <div class="role-icon ico-eng">⚙️</div>
+          <div><div class="role-name">Engineering — Credit</div><div class="role-abbr">Eng Credit Track · 2 sessions</div></div>
+        </div>
+        <div class="role-sessions">
+          <div class="role-session"><span class="s-num">S1</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+          <div class="role-session"><span class="s-num">S2</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+        </div>
+      </div>
+
+      <div class="role-card">
+        <div class="role-hd">
+          <div class="role-icon ico-pm">🗺️</div>
+          <div><div class="role-name">Product</div><div class="role-abbr">PM Track · 2 sessions</div></div>
+        </div>
+        <div class="role-sessions">
+          <div class="role-session"><span class="s-num">S1</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+          <div class="role-session"><span class="s-num">S2</span><div><div class="s-stitle">Topic TBD</div><span class="s-tbd">Confirmed after pre-survey</span></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────────────────── -->
+  <div class="footer">
+    <div>
+      <div class="footer-org">GFP &amp; Credit Risk · AI Enablement Program</div>
+      <div class="footer-sub">PayPal · 2026 · Document owner: GFP AI Enablement Lead</div>
+    </div>
+    <div class="footer-contact">Questions? <a href="mailto:">Contact the GFP AI Enablement team</a></div>
+  </div>
+
+</div>
+</body>
+</html>
