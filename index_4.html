@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Enablement Hub · Fraud &amp; ML · Credit Risk</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+
+/* ============================================================
+   AI ENABLEMENT HUB — PayPal Fraud & ML · Credit Risk · 2026
+   ============================================================
+   MAINTENANCE GUIDE
+   -----------------
+   To update content, search for the marker comments below:
+
+   EDIT: NAV LOGO TEXT          → line ~120  (logo name)
+   EDIT: HOME HERO TEXT         → line ~155  (hero headline + description)
+   EDIT: GLANCE CARDS           → line ~185  (next session, next OH, latest news)
+   EDIT: SESSION 1              → line ~260  (date, moderator, reg links, slides, recording)
+   EDIT: SESSION 2              → line ~295
+   EDIT: SESSION 3              → line ~330
+   EDIT: SESSION 4              → line ~365
+   EDIT: CREDIT MGMT VIDEOS     → line ~400  (use case titles and links)
+   EDIT: PHASE 2 ROLES          → line ~435  (role family names)
+   EDIT: OFFICE HOURS ROWS      → line ~480  (dates, timezone, moderator, reg links, Q&A links)
+   EDIT: SHARED QA SHEET LINK   → line ~470  (one Excel link used everywhere)
+   EDIT: CONTENT LIBRARY        → line ~560  (dates, slide links, recording links, status)
+   EDIT: WHATS NEW CARDS        → line ~620  (title, date, category, description, link)
+   EDIT: WHATS NEW CTA EMAIL    → line ~690  (submission email address)
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Brand */
+  --navy:       #002991;
+  --navy-deep:  #001a6b;
+  --accent:     #60CDFF;
+  --accent-dim: rgba(96,205,255,0.12);
+  --accent-bdr: rgba(96,205,255,0.28);
+  --sky:        #B5D4F4;
+
+  /* Surface */
+  --bg:         #eef3fa;
+  --surface:    #ffffff;
+  --surface-2:  #f5f8fc;
+  --border:     #dde5f0;
+
+  /* Text */
+  --text:       #0d1b36;
+  --mid:        #4a5a7a;
+  --muted:      #8898b8;
+
+  /* Page accents */
+  --oh-dark:    #085041;
+  --oh-mid:     #0f6e56;
+  --oh-light:   #1d9e75;
+  --ct-dark:    #26215C;
+  --ct-mid:     #3C3489;
+  --ct-light:   #534AB7;
+  --wn-dark:    #7a3d00;
+  --wn-mid:     #c47000;
+  --wn-light:   #EF9F27;
+  --cr-amber:   #e8900a;
+
+  /* Phase badges */
+  --p1-bg: #e6f0fb; --p1-tx: #0c447c;
+  --p2-bg: #e0f4ee; --p2-tx: #085041;
+  --cr-bg: #fff5e6; --cr-tx: #7a3d00; --cr-bd: #f5c98a;
+
+  --r: 10px;
+  --font: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+html, body { width: 100%; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; -webkit-font-smoothing: antialiased; }
+
+/* ── PAGES ──────────────────────────────── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── NAV ────────────────────────────────── */
+.nav {
+  background: var(--navy-deep);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(96,205,255,0.12);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ✏️ EDIT: NAV LOGO TEXT — change the two lines below */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border-right: 1px solid rgba(96,205,255,0.10);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.nav-logo:hover { background: rgba(255,255,255,0.04); }
+.nav-logo svg { width: 28px; height: 28px; flex-shrink: 0; }
+.nav-logo-text { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
+.nav-logo-sub  { font-size: 10px; color: var(--accent); letter-spacing: 1.2px; text-transform: uppercase; }
+
+.nav-links { display: flex; align-items: stretch; flex: 1; }
+.nav-link {
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.58);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-link:hover  { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── SHARED HERO ────────────────────────── */
+.page-hero {
+  padding: 52px 6% 44px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 110%, rgba(96,205,255,0.09) 0%, transparent 70%);
+  pointer-events: none;
+}
+.page-hero h2 { font-size: 30px; font-weight: 600; color: #fff; margin-bottom: 10px; position: relative; }
+.page-hero p  { font-size: 14px; line-height: 1.75; max-width: 520px; margin: 0 auto; color: rgba(255,255,255,0.72); position: relative; }
+
+.hero-bootcamp { background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 55%, #0042cc 100%); }
+.hero-oh       { background: linear-gradient(160deg, var(--oh-dark) 0%, var(--oh-mid) 55%, var(--oh-light) 100%); }
+.hero-ct       { background: linear-gradient(160deg, var(--ct-dark) 0%, var(--ct-mid) 55%, var(--ct-light) 100%); }
+.hero-wn       { background: linear-gradient(160deg, var(--wn-dark) 0%, var(--wn-mid) 55%, var(--wn-light) 100%); }
+
+/* ── BODY WRAPPER ───────────────────────── */
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 5% 72px; }
+
+/* ── SHARED UTILS ───────────────────────── */
+.badge { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 100px; }
+.b1 { background: var(--p1-bg); color: var(--p1-tx); }
+.b2 { background: var(--p2-bg); color: var(--p2-tx); }
+.section { margin-top: 32px; }
+.section-hd { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.section-title { font-size: 18px; font-weight: 600; color: var(--text); }
+.section-sub   { font-size: 12px; color: var(--mid); margin-top: 3px; }
+.sec-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+
+/* ── HOME HERO ──────────────────────────── */
+.home-hero {
+  background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 55%, #0042cc 100%);
+  padding: 68px 6% 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 75% 55% at 50% 110%, rgba(96,205,255,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* ✏️ EDIT: HOME HERO TEXT — update title, description, tags below */
+.home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 2.8px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  position: relative;
+}
+.home-eyebrow::before, .home-eyebrow::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--accent-bdr);
+}
+.home-hero h1 {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  margin-bottom: 18px;
+  position: relative;
+}
+.home-hero h1 em { font-style: normal; color: var(--accent); }
+.home-hero-desc {
+  font-size: clamp(15px, 1.4vw, 17px);
+  color: var(--sky);
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  position: relative;
+}
+.home-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; position: relative; }
+.home-tag {
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-bdr);
+  border-radius: 100px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 18px;
+}
+
+/* ── AT A GLANCE ────────────────────────── */
+/* ✏️ EDIT: GLANCE CARDS — update next session, next OH, latest news titles/dates */
+.glance { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 40px; }
+.glance-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 22px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.glance-card:hover { box-shadow: 0 4px 20px rgba(0,41,145,0.09); border-color: #c0d4ee; }
+.glance-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 9px; display: flex; align-items: center; gap: 5px; }
+.glance-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.35; }
+.glance-sub   { font-size: 12px; color: var(--mid); }
+.glance-chip  { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 100px; margin-top: 9px; }
+.chip-tbd  { color: var(--muted); background: var(--surface-2); border: 0.5px solid var(--border); }
+.chip-new  { color: var(--p2-tx); background: var(--p2-bg); }
+.glance-arrow { font-size: 11px; color: var(--navy); font-weight: 600; margin-top: 11px; display: flex; align-items: center; gap: 4px; }
+
+/* ── NAV CARDS ──────────────────────────── */
+.nav-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.nav-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.nav-card:hover { box-shadow: 0 6px 28px rgba(0,41,145,0.11); border-color: #b5c8e8; }
+.nav-card-visual {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.nv-bootcamp { background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 60%, #0042cc 100%); }
+.nv-oh       { background: linear-gradient(135deg, var(--oh-dark) 0%, var(--oh-mid) 60%, var(--oh-light) 100%); }
+.nv-ct       { background: linear-gradient(135deg, var(--ct-dark) 0%, var(--ct-mid) 60%, var(--ct-light) 100%); }
+.nv-wn       { background: linear-gradient(135deg, var(--wn-dark) 0%, var(--wn-mid) 60%, var(--wn-light) 100%); }
+.nav-card-bg-svg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0.08; }
+.nav-card-icon { position: relative; z-index: 1; font-size: 48px; color: rgba(255,255,255,0.88); }
+.nav-card-body { padding: 18px 22px 20px; }
+.nav-card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.nav-card-desc  { font-size: 13px; color: var(--mid); line-height: 1.65; margin-bottom: 12px; }
+.nav-card-cta   { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; }
+
+/* ── STRIP ──────────────────────────────── */
+.strip {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.strip-item { padding: 20px 24px; text-align: center; border-right: 0.5px solid var(--border); }
+.strip-item:last-child { border-right: none; }
+.strip-step  { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+.strip-num   { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.strip-label { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.strip-desc  { font-size: 12px; color: var(--mid); line-height: 1.5; }
+
+/* ── SESSION CARDS ──────────────────────── */
+.sessions { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.s-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  transition: box-shadow 0.2s;
+}
+.s-card:hover { box-shadow: 0 4px 18px rgba(0,41,145,0.08); }
+.s-card.credit { border-left: 2.5px solid var(--cr-amber); }
+.cr-row { grid-column: 1 / -1; }
+
+.s-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; flex-wrap: wrap; }
+.s-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--navy);
+  padding: 2px 10px;
+  border-radius: 100px;
+  letter-spacing: 0.4px;
+}
+.s-lbl.cr { background: var(--wn-mid); color: #fff; }
+.s-aud {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: 100px;
+  padding: 2px 9px;
+}
+/* ✏️ EDIT: SESSION DATE — replace "Date TBD" with actual date in each session */
+.s-date {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+.s-date i { color: var(--navy); font-size: 14px; }
+.s-title { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+.s-dur   { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+
+.mod-block {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: 7px;
+  padding: 8px 12px;
+  margin-bottom: 11px;
+}
+.mod-av {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--p1-bg);
+  border: 0.5px solid #b5c8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.mod-lbl  { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 1px; }
+.mod-name { font-size: 13px; font-weight: 600; color: var(--mid); }
+.mod-name.tbd { font-style: italic; font-weight: 400; }
+
+.s-desc { font-size: 12.5px; color: var(--mid); line-height: 1.7; margin-bottom: 12px; }
+
+/* ✏️ EDIT: REGISTRATION LINKS — replace href="#" with your Microsoft Form URLs */
+.reg-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.reg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 7px;
+  padding: 7px 13px;
+  border: 0.5px solid;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.15s;
+}
+.reg-btn:hover { filter: brightness(0.95); }
+.reg-btn.emea { color: var(--p1-tx); background: var(--p1-bg); border-color: #a8c4e8; }
+.reg-btn.us   { color: var(--p2-tx); background: var(--p2-bg); border-color: #8ecfb8; }
+
+/* ✏️ EDIT: SLIDES & RECORDING LINKS — replace href="#" with real links when available */
+.s-links { display: flex; gap: 6px; flex-wrap: wrap; padding-top: 10px; border-top: 0.5px solid var(--border); }
+.s-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 4px 10px;
+  border: 0.5px solid var(--border);
+  color: var(--muted);
+  background: var(--surface-2);
+  text-decoration: none;
+  cursor: default;
+  pointer-events: none;
+}
+.s-link.live {
+  color: var(--navy);
+  background: var(--p1-bg);
+  border-color: #a8c4e8;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* ── VIDEO BUTTONS (Credit Mgmt) ─────────── */
+/* ✏️ EDIT: CREDIT MGMT VIDEOS — replace href="#" and "Use Case N — TBD" with real titles/links */
+.video-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.vid-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cr-tx);
+  background: var(--cr-bg);
+  border: 0.5px solid var(--cr-bd);
+  border-radius: 7px;
+  padding: 6px 13px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.15s;
+}
+.vid-btn:hover { filter: brightness(0.96); }
+
+/* ── PHASE 2 TBD ────────────────────────── */
+/* ✏️ EDIT: PHASE 2 ROLES — update role family names if needed */
+.tbd-block {
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px 28px;
+  text-align: center;
+}
+.tbd-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+.tbd-desc  { font-size: 13px; color: var(--mid); line-height: 1.65; }
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+  opacity: 0.45;
+}
+.role-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.role-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.role-abbr { font-size: 10px; color: var(--muted); }
+
+/* ── OFFICE HOURS ───────────────────────── */
+.oh-intro {
+  background: linear-gradient(135deg, rgba(15,110,86,0.05), rgba(29,158,117,0.08));
+  border: 0.5px solid rgba(29,158,117,0.25);
+  border-left: 3px solid var(--oh-light);
+  border-radius: var(--r);
+  padding: 16px 22px;
+  margin-bottom: 24px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.oh-intro-icon  { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.oh-intro-title { font-size: 14px; font-weight: 700; color: var(--oh-dark); margin-bottom: 5px; }
+.oh-intro-desc  { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+/* ✏️ EDIT: SHARED QA SHEET LINK — replace href="#" with your shared Excel URL */
+.oh-excel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--oh-dark);
+  background: var(--p2-bg);
+  border: 0.5px solid #8ecfb8;
+  border-radius: 7px;
+  padding: 7px 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ✏️ EDIT: OFFICE HOURS ROWS — update number, timezone, date, moderator, register link, Q&A link */
+.oh-grid { display: flex; flex-direction: column; gap: 12px; }
+.oh-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 0 22px;
+  align-items: center;
+  transition: box-shadow 0.15s;
+}
+.oh-card:hover { box-shadow: 0 4px 18px rgba(0,41,145,0.07); }
+.oh-num-col  { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.oh-num      { font-size: 24px; font-weight: 700; color: var(--oh-mid); line-height: 1; }
+.oh-num-lbl  { font-size: 9px; font-weight: 600; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+.oh-mid-col  { display: flex; flex-direction: column; gap: 6px; }
+.oh-tz {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 11px;
+  border-radius: 100px;
+  align-self: flex-start;
+}
+.tz-emea { color: var(--p1-tx); background: var(--p1-bg); border: 0.5px solid #a8c4e8; }
+.tz-us   { color: var(--p2-tx); background: var(--p2-bg); border: 0.5px solid #8ecfb8; }
+.oh-date { font-size: 13px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 5px; }
+.oh-date i { color: var(--oh-mid); }
+.oh-mod  { font-size: 12px; color: var(--muted); }
+.oh-actions { display: flex; flex-direction: column; gap: 7px; align-items: flex-end; }
+.oh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 7px;
+  padding: 8px 15px;
+  text-decoration: none;
+  border: 0.5px solid;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.15s;
+}
+.oh-btn:hover { filter: brightness(0.95); }
+.oh-btn.register { color: #fff; background: var(--navy); border-color: var(--navy); }
+.oh-btn.question { color: var(--p2-tx); background: var(--p2-bg); border-color: #8ecfb8; }
+
+/* ── CONTENT LIBRARY ────────────────────── */
+/* ✏️ EDIT: CONTENT LIBRARY — swap href="#" and "TBD"/"Coming soon" when sessions complete */
+.ct-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.ct-table th {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: left;
+  padding: 11px 18px;
+  background: var(--surface-2);
+  border-bottom: 0.5px solid var(--border);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.ct-table td {
+  font-size: 13px;
+  color: var(--text);
+  padding: 14px 18px;
+  border-bottom: 0.5px solid var(--border);
+  vertical-align: middle;
+}
+.ct-table tr:last-child td { border-bottom: none; }
+.ct-table tr:hover td { background: var(--surface-2); }
+.ct-tag { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--navy); padding: 2px 9px; border-radius: 100px; display: inline-block; white-space: nowrap; }
+.ct-tag.cr { background: var(--wn-mid); }
+.ct-status-soon { font-size: 11px; color: var(--muted); font-style: italic; }
+.ct-status-live { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--p2-tx); background: var(--p2-bg); border: 0.5px solid #8ecfb8; border-radius: 100px; padding: 2px 10px; }
+.ct-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 5px 11px;
+  text-decoration: none;
+  border: 0.5px solid;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: filter 0.15s;
+}
+.ct-link:hover { filter: brightness(0.95); }
+.ct-link.slides { color: var(--ct-mid); background: #EEEDFE; border-color: #AFA9EC; }
+.ct-link.rec    { color: var(--navy);    background: var(--p1-bg); border-color: #a8c4e8; }
+.ct-link.tbd    { color: var(--muted);   background: var(--surface-2); border-color: var(--border); pointer-events: none; }
+
+/* ── WHAT'S NEW ─────────────────────────── */
+/* ✏️ EDIT: WHATS NEW CARDS — add/update cards below; duplicate a .wn-card block to add a new post */
+.wn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.wn-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r); overflow: hidden; transition: box-shadow 0.15s; }
+.wn-card:hover { box-shadow: 0 4px 18px rgba(0,41,145,0.08); }
+.wn-card-header { padding: 16px 18px 12px; border-bottom: 0.5px solid var(--border); }
+.wn-card-body   { padding: 14px 18px 16px; }
+.wn-tag { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 100px; display: inline-block; }
+.wn-card-title { font-size: 15px; font-weight: 600; color: var(--text); margin: 8px 0 5px; line-height: 1.35; }
+.wn-card-meta  { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.wn-card-desc  { font-size: 13px; color: var(--mid); line-height: 1.65; }
+.wn-card-link  { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: var(--navy); margin-top: 10px; text-decoration: none; }
+.wn-card-link:hover { text-decoration: underline; }
+
+/* ✏️ EDIT: WHATS NEW CTA EMAIL — update mailto link and displayed address */
+.wn-cta {
+  background: linear-gradient(135deg, rgba(122,61,0,0.05), rgba(239,159,39,0.09));
+  border: 0.5px solid rgba(239,159,39,0.3);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.wn-cta-icon  { font-size: 28px; flex-shrink: 0; }
+.wn-cta-title { font-size: 16px; font-weight: 700; color: var(--wn-dark); margin-bottom: 6px; }
+.wn-cta-desc  { font-size: 13px; color: var(--mid); line-height: 1.65; margin-bottom: 12px; }
+.wn-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--wn-mid);
+  border-radius: 7px;
+  padding: 9px 18px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.15s;
+}
+.wn-cta-btn:hover { filter: brightness(0.95); }
+.wn-cta-format {
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: 7px;
+  padding: 11px 15px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.75;
+}
+.wn-cta-format strong { color: var(--text); font-weight: 700; }
+
+/* ── FOOTER ─────────────────────────────── */
+.site-footer {
+  background: var(--surface);
+  border-top: 0.5px solid var(--border);
+  padding: 18px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 40px;
+}
+.footer-org { font-size: 14px; font-weight: 700; color: var(--navy); }
+.footer-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.footer-email { font-size: 13px; color: var(--mid); }
+.footer-email a { color: var(--navy); font-weight: 600; text-decoration: none; }
+.footer-email a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media (max-width: 960px) {
+  .glance, .sessions, .nav-cards, .wn-grid { grid-template-columns: 1fr; }
+  .cr-row { grid-column: unset; }
+  .role-grid { grid-template-columns: 1fr 1fr; }
+  .strip { grid-template-columns: 1fr; }
+  .strip-item { border-right: none; border-bottom: 0.5px solid var(--border); }
+  .strip-item:last-child { border-bottom: none; }
+  .oh-card { grid-template-columns: 60px 1fr; }
+  .oh-actions { grid-column: 1 / -1; flex-direction: row; align-items: center; padding-top: 10px; border-top: 0.5px solid var(--border); margin-top: 4px; }
+}
+@media (max-width: 600px) {
+  .nav-link span { display: none; }
+  .home-hero { padding: 52px 5% 44px; }
+  .wrap { padding: 20px 5% 60px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════ -->
+<nav class="nav">
+
+  <!-- ✏️ EDIT: NAV LOGO TEXT — change "AI Enablement" and subtitle below -->
+  <div class="nav-logo" onclick="showPage('home')" aria-label="Go to home">
+    <!-- Hexagon logo mark -->
+    <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polygon points="36,4 64,20 64,52 36,68 8,52 8,20" fill="#002991" fill-opacity="0.85" stroke="#60CDFF" stroke-width="2.2"/>
+      <circle cx="36" cy="36" r="5" fill="#60CDFF"/>
+      <line x1="36" y1="36" x2="36" y2="14" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <line x1="36" y1="36" x2="54" y2="25" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <line x1="36" y1="36" x2="54" y2="47" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <line x1="36" y1="36" x2="36" y2="58" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+      <line x1="36" y1="36" x2="18" y2="47" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+      <line x1="36" y1="36" x2="18" y2="25" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <circle cx="36" cy="14" r="2.4" fill="#60CDFF" opacity="0.85"/>
+      <circle cx="54" cy="25" r="2.4" fill="#60CDFF" opacity="0.85"/>
+      <circle cx="18" cy="25" r="2.4" fill="#60CDFF" opacity="0.85"/>
+    </svg>
+    <div>
+      <div class="nav-logo-text">AI Enablement</div>
+      <div class="nav-logo-sub">Fraud &amp; ML · Credit Risk</div>
+    </div>
+  </div>
+
+  <div class="nav-links">
+    <div class="nav-link" onclick="showPage('bootcamp',this)"><i class="ti ti-school" aria-hidden="true"></i><span>Bootcamp</span></div>
+    <div class="nav-link" onclick="showPage('officehours',this)"><i class="ti ti-users-group" aria-hidden="true"></i><span>Office Hours</span></div>
+    <div class="nav-link" onclick="showPage('content',this)"><i class="ti ti-library" aria-hidden="true"></i><span>Content</span></div>
+    <div class="nav-link" onclick="showPage('whatsnew',this)"><i class="ti ti-bulb" aria-hidden="true"></i><span>What's New</span></div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     PAGE: HOME
+═══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- ✏️ EDIT: HOME HERO TEXT -->
+  <div class="home-hero">
+    <svg style="width:54px;height:54px;margin-bottom:18px;position:relative;" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polygon points="36,4 64,20 64,52 36,68 8,52 8,20" fill="#002991" fill-opacity="0.85" stroke="#60CDFF" stroke-width="2.2"/>
+      <circle cx="36" cy="36" r="5" fill="#60CDFF"/>
+      <line x1="36" y1="36" x2="36" y2="14" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <line x1="36" y1="36" x2="54" y2="25" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <line x1="36" y1="36" x2="54" y2="47" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <line x1="36" y1="36" x2="36" y2="58" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+      <line x1="36" y1="36" x2="18" y2="47" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+      <line x1="36" y1="36" x2="18" y2="25" stroke="#60CDFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <circle cx="36" cy="14" r="2.4" fill="#60CDFF" opacity="0.85"/>
+      <circle cx="54" cy="25" r="2.4" fill="#60CDFF" opacity="0.85"/>
+      <circle cx="18" cy="25" r="2.4" fill="#60CDFF" opacity="0.85"/>
+    </svg>
+    <div class="home-eyebrow">Fraud &amp; ML · Credit Risk · PayPal · 2026</div>
+    <h1>AI Enablement <em>Hub</em></h1>
+    <p class="home-hero-desc">Your central resource for the AI Enablement program — the Bootcamp, Office Hours, session recordings, and the latest in AI relevant to Fraud &amp; ML and Credit Risk.</p>
+    <div class="home-tags">
+      <span class="home-tag">Bootcamp · September 2026</span>
+      <span class="home-tag">Office Hours</span>
+      <span class="home-tag">Content Library</span>
+      <span class="home-tag">What's New in AI</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ✏️ EDIT: GLANCE CARDS — update titles, dates, subtitles as program progresses -->
+    <div class="sec-label">At a glance</div>
+    <div class="glance">
+
+      <div class="glance-card" onclick="showPage('bootcamp')">
+        <div class="glance-label"><i class="ti ti-calendar" aria-hidden="true"></i> Next session</div>
+        <div class="glance-title">Session 1 — GenAI Foundations &amp; PayPal Tools</div>
+        <div class="glance-sub">Moderator: Bibhash Chakrabarty</div>
+        <span class="glance-chip chip-tbd"><i class="ti ti-clock" style="font-size:10px"></i> Date TBD</span>
+        <div class="glance-arrow"><i class="ti ti-arrow-right" style="font-size:12px"></i> View all sessions</div>
+      </div>
+
+      <div class="glance-card" onclick="showPage('officehours')">
+        <div class="glance-label"><i class="ti ti-users-group" aria-hidden="true"></i> Next office hours</div>
+        <div class="glance-title">Office Hours 1 — EMEA / APAC</div>
+        <div class="glance-sub">Moderator: TBC · Register to receive meeting link</div>
+        <span class="glance-chip chip-tbd"><i class="ti ti-clock" style="font-size:10px"></i> Date TBD</span>
+        <div class="glance-arrow"><i class="ti ti-arrow-right" style="font-size:12px"></i> View schedule &amp; register</div>
+      </div>
+
+      <div class="glance-card" onclick="showPage('whatsnew')">
+        <div class="glance-label"><i class="ti ti-bulb" aria-hidden="true"></i> Latest update</div>
+        <div class="glance-title">Claude 4 is now available on Cosmos</div>
+        <div class="glance-sub">AI Enablement team · June 2026</div>
+        <span class="glance-chip chip-new">Tool update</span>
+        <div class="glance-arrow"><i class="ti ti-arrow-right" style="font-size:12px"></i> See what's new</div>
+      </div>
+
+    </div>
+
+    <!-- NAV CARDS -->
+    <div class="sec-label" style="margin-top:40px;">Explore</div>
+    <div class="nav-cards">
+
+      <div class="nav-card" onclick="showPage('bootcamp')">
+        <div class="nav-card-visual nv-bootcamp">
+          <div class="nav-card-bg-svg">
+            <svg width="220" height="120" viewBox="0 0 220 120"><circle cx="110" cy="60" r="44" fill="none" stroke="#60CDFF" stroke-width="1"/><circle cx="110" cy="60" r="28" fill="none" stroke="#60CDFF" stroke-width="0.7"/><line x1="20" y1="60" x2="200" y2="60" stroke="#60CDFF" stroke-width="0.5"/><line x1="110" y1="5" x2="110" y2="115" stroke="#60CDFF" stroke-width="0.5"/></svg>
+          </div>
+          <i class="ti ti-school nav-card-icon" aria-hidden="true"></i>
+        </div>
+        <div class="nav-card-body">
+          <div class="nav-card-title">Bootcamp — September 2026</div>
+          <div class="nav-card-desc">4 general sessions covering AI foundations, Claude Skills, Claude Code, and agentic tools — plus role-specific deep dives in Phase 2. Register for EMEA/APAC or US time zones.</div>
+          <div class="nav-card-cta" style="color:var(--navy)"><i class="ti ti-arrow-right" style="font-size:13px"></i> View sessions &amp; register</div>
+        </div>
+      </div>
+
+      <div class="nav-card" onclick="showPage('officehours')">
+        <div class="nav-card-visual nv-oh">
+          <div class="nav-card-bg-svg">
+            <svg width="220" height="120" viewBox="0 0 220 120"><circle cx="110" cy="60" r="44" fill="none" stroke="#fff" stroke-width="1"/><circle cx="110" cy="36" r="9" fill="none" stroke="#fff" stroke-width="0.9"/><circle cx="80" cy="75" r="9" fill="none" stroke="#fff" stroke-width="0.9"/><circle cx="140" cy="75" r="9" fill="none" stroke="#fff" stroke-width="0.9"/></svg>
+          </div>
+          <i class="ti ti-users-group nav-card-icon" aria-hidden="true"></i>
+        </div>
+        <div class="nav-card-body">
+          <div class="nav-card-title">Office Hours</div>
+          <div class="nav-card-desc">Open sessions with AI experts — no fixed agenda, any question welcome. Register to receive the meeting link and submit your question in advance via the shared Q&amp;A sheet.</div>
+          <div class="nav-card-cta" style="color:var(--oh-mid)"><i class="ti ti-arrow-right" style="font-size:13px"></i> View schedule &amp; register</div>
+        </div>
+      </div>
+
+      <div class="nav-card" onclick="showPage('content')">
+        <div class="nav-card-visual nv-ct">
+          <div class="nav-card-bg-svg">
+            <svg width="220" height="120" viewBox="0 0 220 120"><rect x="65" y="20" width="90" height="80" rx="6" fill="none" stroke="#fff" stroke-width="1"/><line x1="78" y1="42" x2="142" y2="42" stroke="#fff" stroke-width="0.8"/><line x1="78" y1="56" x2="142" y2="56" stroke="#fff" stroke-width="0.8"/><line x1="78" y1="70" x2="118" y2="70" stroke="#fff" stroke-width="0.8"/></svg>
+          </div>
+          <i class="ti ti-library nav-card-icon" aria-hidden="true"></i>
+        </div>
+        <div class="nav-card-body">
+          <div class="nav-card-title">Content Library</div>
+          <div class="nav-card-desc">All session recordings and presentation slides in one place. Find what you need by session — published after each session is completed.</div>
+          <div class="nav-card-cta" style="color:var(--ct-mid)"><i class="ti ti-arrow-right" style="font-size:13px"></i> Browse recordings &amp; slides</div>
+        </div>
+      </div>
+
+      <div class="nav-card" onclick="showPage('whatsnew')">
+        <div class="nav-card-bg-svg">
+          <svg width="220" height="120" viewBox="0 0 220 120"><polygon points="110,15 120,46 154,46 128,65 138,96 110,77 82,96 92,65 66,46 100,46" fill="none" stroke="#fff" stroke-width="1"/></svg>
+        </div>
+        <div class="nav-card-visual nv-wn">
+          <div class="nav-card-bg-svg">
+            <svg width="220" height="120" viewBox="0 0 220 120"><polygon points="110,15 120,46 154,46 128,65 138,96 110,77 82,96 92,65 66,46 100,46" fill="none" stroke="#fff" stroke-width="1"/></svg>
+          </div>
+          <i class="ti ti-bulb nav-card-icon" aria-hidden="true"></i>
+        </div>
+        <div class="nav-card-body">
+          <div class="nav-card-title">What's New in AI</div>
+          <div class="nav-card-desc">The latest tools, research, and use cases relevant to Fraud &amp; ML and Credit Risk. Curated by the team. Have an idea? Submit it for publication.</div>
+          <div class="nav-card-cta" style="color:var(--wn-dark)"><i class="ti ti-arrow-right" style="font-size:13px"></i> See latest updates</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- end page-home -->
+
+<!-- ═══════════════════════════════════════
+     PAGE: BOOTCAMP
+═══════════════════════════════════════ -->
+<div class="page" id="page-bootcamp">
+  <div class="page-hero hero-bootcamp">
+    <h2>AI Enablement Bootcamp</h2>
+    <p>Real tools and real use cases from within our own teams — covering foundations, automation, agents, and the AI already built inside the teams.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="strip">
+      <div class="strip-item"><div class="strip-step">Phase 1</div><div class="strip-num">4 Sessions</div><div class="strip-label">General Bootcamp</div><div class="strip-desc">Weekly live sessions open to all Fraud &amp; ML and Credit Risk employees</div></div>
+      <div class="strip-item"><div class="strip-step">Phase 2</div><div class="strip-num">Role Tracks</div><div class="strip-label">Deep Dives</div><div class="strip-desc">Focused per role family — open to all</div></div>
+      <div class="strip-item"><div class="strip-step">Outcome</div><div class="strip-num">Apply</div><div class="strip-label">Build &amp; Experiment</div><div class="strip-desc">Apply what you've learned to real work in your team</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-hd">
+        <span class="badge b1">Phase 1</span>
+        <div>
+          <div class="section-title">General Sessions — 4 Weeks</div>
+          <div class="section-sub">All Fraud &amp; ML and Credit Risk employees · September 2026</div>
+        </div>
+      </div>
+
+      <div class="sessions">
+
+        <!-- ✏️ EDIT: SESSION 1 — update date (line below), moderator, reg links (href), slides href, recording href -->
+        <div class="s-card">
+          <div class="s-meta"><span class="s-lbl">Session 1</span><span class="s-aud">Everyone</span></div>
+          <div class="s-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="s-title">GenAI Foundations &amp; PayPal Tools</div>
+          <div class="s-dur">2h session + self-study</div>
+          <div class="mod-block">
+            <div class="mod-av">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name">Bibhash Chakrabarty</div></div>
+          </div>
+          <div class="s-desc">A clear mental model of how AI works — AI evolution, language models (tokens, embeddings, transformers), RAG, Fine-Tuning, and Agentic AI. Introduces the PayPal AI toolkit and closes with the S.M.A.R.T.R. prompting framework with live GFP-specific examples.</div>
+          <div class="reg-row">
+            <a class="reg-btn emea" href="#"><i class="ti ti-world" aria-hidden="true"></i> Register — EMEA/APAC</a>
+            <a class="reg-btn us"   href="#"><i class="ti ti-world" aria-hidden="true"></i> Register — US</a>
+          </div>
+          <div class="s-links">
+            <span class="s-link">📊 Slides — coming soon</span>
+            <span class="s-link">▶ Recording — coming soon</span>
+          </div>
+        </div>
+
+        <!-- ✏️ EDIT: SESSION 2 -->
+        <div class="s-card">
+          <div class="s-meta"><span class="s-lbl">Session 2</span><span class="s-aud">Everyone</span></div>
+          <div class="s-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="s-title">Claude Skills &amp; Automations</div>
+          <div class="s-dur">2h session + hands-on practice</div>
+          <div class="mod-block">
+            <div class="mod-av">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name tbd">To be confirmed</div></div>
+          </div>
+          <div class="s-desc">Create a Custom GPT and a Skill in Claude through a simple interface. Connect AI to Outlook, Jira, Slack, and SharePoint via connectors. Leave with a working AI tool tailored to a task you do regularly.</div>
+          <div class="reg-row">
+            <a class="reg-btn emea" href="#"><i class="ti ti-world" aria-hidden="true"></i> Register — EMEA/APAC</a>
+            <a class="reg-btn us"   href="#"><i class="ti ti-world" aria-hidden="true"></i> Register — US</a>
+          </div>
+          <div class="s-links">
+            <span class="s-link">📊 Slides — coming soon</span>
+            <span class="s-link">▶ Recording — coming soon</span>
+          </div>
+        </div>
+
+        <!-- ✏️ EDIT: SESSION 3 -->
+        <div class="s-card">
+          <div class="s-meta"><span class="s-lbl">Session 3</span><span class="s-aud">Technical</span></div>
+          <div class="s-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="s-title">Claude Code &amp; Building Agents</div>
+          <div class="s-dur">2h session + hands-on practice</div>
+          <div class="mod-block">
+            <div class="mod-av">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name">Ariel Friedlander</div></div>
+          </div>
+          <div class="s-desc">Claude Code — an agentic coding tool that lives in your terminal. Covers key commands, connecting to BigQuery and internal data sources, and designing multi-step agent workflows. Live demo based on a real GFP fraud investigation scenario.</div>
+          <div class="reg-row">
+            <a class="reg-btn emea" href="#"><i class="ti ti-world" aria-hidden="true"></i> Register — EMEA/APAC</a>
+            <a class="reg-btn us"   href="#"><i class="ti ti-world" aria-hidden="true"></i> Register — US</a>
+          </div>
+          <div class="s-links">
+            <span class="s-link">📊 Slides — coming soon</span>
+            <span class="s-link">▶ Recording — coming soon</span>
+          </div>
+        </div>
+
+        <!-- ✏️ EDIT: SESSION 4 -->
+        <div class="s-card">
+          <div class="s-meta"><span class="s-lbl">Session 4</span><span class="s-aud">Fraud Management</span></div>
+          <div class="s-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="s-title">Agentic Tools — Fraud Management</div>
+          <div class="s-dur">2h session + project</div>
+          <div class="mod-block">
+            <div class="mod-av">👤</div>
+            <div><div class="mod-lbl">Moderator</div><div class="mod-name tbd">To be confirmed</div></div>
+          </div>
+          <div class="s-desc">Deep dive into AI tools already built within GFP — Lumens, DetectiBot, FraudScreener, Analysis Agent — with live demos. Covers fraud pattern detection, rule creation, monitoring, and case analysis.</div>
+          <div class="reg-row">
+            <a class="reg-btn emea" href="#"><i class="ti ti-world" aria-hidden="true"></i> Register — EMEA/APAC</a>
+            <a class="reg-btn us"   href="#"><i class="ti ti-world" aria-hidden="true"></i> Register — US</a>
+          </div>
+          <div class="s-links">
+            <span class="s-link">📊 Slides — coming soon</span>
+            <span class="s-link">▶ Recording — coming soon</span>
+          </div>
+        </div>
+
+        <!-- ✏️ EDIT: CREDIT MGMT VIDEOS — replace "Use Case N — TBD" and href="#" with real titles/links -->
+        <div class="s-card credit cr-row">
+          <div class="s-meta"><span class="s-lbl cr">Credit Management</span><span class="s-aud">Credit Risk specialists</span></div>
+          <div class="s-title">Credit Management — Use Case Videos</div>
+          <div class="s-dur">Self-paced · Watch at your own pace</div>
+          <div class="mod-block">
+            <div class="mod-av">👤</div>
+            <div><div class="mod-lbl">Curator</div><div class="mod-name tbd">To be confirmed</div></div>
+          </div>
+          <div class="s-desc">A curated set of video use cases showcasing AI applied to Credit Risk workflows — credit rule creation, risk model explainability, regulatory and policy document review, and decision intelligence.</div>
+          <div class="video-grid">
+            <a class="vid-btn" href="#"><i class="ti ti-player-play" aria-hidden="true"></i> Use Case 1 — TBD</a>
+            <a class="vid-btn" href="#"><i class="ti ti-player-play" aria-hidden="true"></i> Use Case 2 — TBD</a>
+            <a class="vid-btn" href="#"><i class="ti ti-player-play" aria-hidden="true"></i> Use Case 3 — TBD</a>
+            <a class="vid-btn" href="#"><i class="ti ti-player-play" aria-hidden="true"></i> Use Case 4 — TBD</a>
+            <a class="vid-btn" href="#"><i class="ti ti-player-play" aria-hidden="true"></i> Use Case 5 — TBD</a>
+          </div>
+        </div>
+
+      </div><!-- end sessions -->
+    </div><!-- end Phase 1 section -->
+
+    <!-- PHASE 2 -->
+    <div class="section">
+      <div class="section-hd">
+        <span class="badge b2">Phase 2</span>
+        <div>
+          <div class="section-title">Role-Specific Deep Dives</div>
+          <div class="section-sub">Open to all · Sessions are more focused based on your role family</div>
+        </div>
+      </div>
+      <div class="tbd-block">
+        <div class="tbd-title">🗓 Coming soon — topics to be announced</div>
+        <div class="tbd-desc">Role-specific sessions will be shaped by the pre-survey results. Topics, dates, and moderators will be published here as soon as they are confirmed. All sessions are open to everyone.</div>
+        <!-- ✏️ EDIT: PHASE 2 ROLES — update role names if needed -->
+        <div class="role-grid">
+          <div class="role-card"><div class="role-name">Data Scientists</div><div class="role-abbr">DS Track</div></div>
+          <div class="role-card"><div class="role-name">ML — GFP</div><div class="role-abbr">ML GFP Track</div></div>
+          <div class="role-card"><div class="role-name">ML — Credit</div><div class="role-abbr">ML Credit Track</div></div>
+          <div class="role-card"><div class="role-name">Engineering — Credit</div><div class="role-abbr">Eng Credit Track</div></div>
+          <div class="role-card"><div class="role-name">Product</div><div class="role-abbr">PM Track</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end page-bootcamp -->
+
+<!-- ═══════════════════════════════════════
+     PAGE: OFFICE HOURS
+═══════════════════════════════════════ -->
+<div class="page" id="page-officehours">
+  <div class="page-hero hero-oh">
+    <h2>Office Hours</h2>
+    <p>Open sessions with our AI experts — any question welcome. No fixed agenda. Register first to receive your meeting link.</p>
+  </div>
+
+  <div class="wrap">
+
+    <div class="oh-intro">
+      <div class="oh-intro-icon">💡</div>
+      <div>
+        <div class="oh-intro-title">How Office Hours work</div>
+        <div class="oh-intro-desc">Come with any question — from the sessions, the tools, or your own AI work in Fraud &amp; ML or Credit Risk. To help the moderator prepare, we encourage you to submit your question in advance using the shared Q&amp;A sheet. Each Office Hours slot has its own tab so questions stay organised. Register first — the meeting link will be sent to you on confirmation.</div>
+        <!-- ✏️ EDIT: SHARED QA SHEET LINK — replace href="#" with the shared Excel file URL -->
+        <a class="oh-excel-btn" href="#"><i class="ti ti-table" aria-hidden="true"></i> Open the shared Q&amp;A sheet</a>
+      </div>
+    </div>
+
+    <!-- ✏️ EDIT: OFFICE HOURS ROWS — update date, moderator, register href, question href for each row -->
+    <div class="oh-grid">
+
+      <div class="oh-card">
+        <div class="oh-num-col"><div class="oh-num">1</div><div class="oh-num-lbl">Office Hours</div></div>
+        <div class="oh-mid-col">
+          <span class="oh-tz tz-emea"><i class="ti ti-world" style="font-size:11px" aria-hidden="true"></i> EMEA / APAC</span>
+          <div class="oh-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="oh-mod">Moderator — TBC</div>
+        </div>
+        <div class="oh-actions">
+          <a class="oh-btn register" href="#"><i class="ti ti-user-plus" aria-hidden="true"></i> Register</a>
+          <a class="oh-btn question" href="#"><i class="ti ti-pencil" aria-hidden="true"></i> Submit your question</a>
+        </div>
+      </div>
+
+      <div class="oh-card">
+        <div class="oh-num-col"><div class="oh-num">2</div><div class="oh-num-lbl">Office Hours</div></div>
+        <div class="oh-mid-col">
+          <span class="oh-tz tz-us"><i class="ti ti-world" style="font-size:11px" aria-hidden="true"></i> US</span>
+          <div class="oh-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="oh-mod">Moderator — TBC</div>
+        </div>
+        <div class="oh-actions">
+          <a class="oh-btn register" href="#"><i class="ti ti-user-plus" aria-hidden="true"></i> Register</a>
+          <a class="oh-btn question" href="#"><i class="ti ti-pencil" aria-hidden="true"></i> Submit your question</a>
+        </div>
+      </div>
+
+      <div class="oh-card">
+        <div class="oh-num-col"><div class="oh-num">3</div><div class="oh-num-lbl">Office Hours</div></div>
+        <div class="oh-mid-col">
+          <span class="oh-tz tz-emea"><i class="ti ti-world" style="font-size:11px" aria-hidden="true"></i> EMEA / APAC</span>
+          <div class="oh-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="oh-mod">Moderator — TBC</div>
+        </div>
+        <div class="oh-actions">
+          <a class="oh-btn register" href="#"><i class="ti ti-user-plus" aria-hidden="true"></i> Register</a>
+          <a class="oh-btn question" href="#"><i class="ti ti-pencil" aria-hidden="true"></i> Submit your question</a>
+        </div>
+      </div>
+
+      <div class="oh-card">
+        <div class="oh-num-col"><div class="oh-num">4</div><div class="oh-num-lbl">Office Hours</div></div>
+        <div class="oh-mid-col">
+          <span class="oh-tz tz-us"><i class="ti ti-world" style="font-size:11px" aria-hidden="true"></i> US</span>
+          <div class="oh-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="oh-mod">Moderator — TBC</div>
+        </div>
+        <div class="oh-actions">
+          <a class="oh-btn register" href="#"><i class="ti ti-user-plus" aria-hidden="true"></i> Register</a>
+          <a class="oh-btn question" href="#"><i class="ti ti-pencil" aria-hidden="true"></i> Submit your question</a>
+        </div>
+      </div>
+
+      <div class="oh-card">
+        <div class="oh-num-col"><div class="oh-num">5</div><div class="oh-num-lbl">Office Hours</div></div>
+        <div class="oh-mid-col">
+          <span class="oh-tz tz-emea"><i class="ti ti-world" style="font-size:11px" aria-hidden="true"></i> EMEA / APAC</span>
+          <div class="oh-date"><i class="ti ti-calendar" aria-hidden="true"></i> Date TBD</div>
+          <div class="oh-mod">Moderator — TBC</div>
+        </div>
+        <div class="oh-actions">
+          <a class="oh-btn register" href="#"><i class="ti ti-user-plus" aria-hidden="true"></i> Register</a>
+          <a class="oh-btn question" href="#"><i class="ti ti-pencil" aria-hidden="true"></i> Submit your question</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- end page-officehours -->
+
+<!-- ═══════════════════════════════════════
+     PAGE: CONTENT LIBRARY
+═══════════════════════════════════════ -->
+<div class="page" id="page-content">
+  <div class="page-hero hero-ct">
+    <h2>Content Library</h2>
+    <p>All session recordings and slides in one place. Published after each session is completed.</p>
+  </div>
+
+  <div class="wrap">
+    <!-- ✏️ EDIT: CONTENT LIBRARY — when a session is done:
+         1. Change "Date TBD" → actual date (e.g. "14 Sep 2026")
+         2. Change <span class="ct-status-soon"> → <span class="ct-status-live"><i class="ti ti-check"></i> Available</span>
+         3. Change <a class="ct-link slides tbd"> → <a class="ct-link slides" href="YOUR_LINK">
+         4. Change <a class="ct-link rec tbd">   → <a class="ct-link rec"    href="YOUR_LINK">
+    -->
+    <table class="ct-table">
+      <thead>
+        <tr>
+          <th>Session</th>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Resources</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="ct-tag">Session 1</span></td>
+          <td style="font-weight:600">GenAI Foundations &amp; PayPal Tools</td>
+          <td style="color:var(--muted);font-style:italic">TBD</td>
+          <td><span class="ct-status-soon">Coming soon</span></td>
+          <td><a class="ct-link slides tbd">📊 Slides</a><a class="ct-link rec tbd">▶ Recording</a></td>
+        </tr>
+        <tr>
+          <td><span class="ct-tag">Session 2</span></td>
+          <td style="font-weight:600">Claude Skills &amp; Automations</td>
+          <td style="color:var(--muted);font-style:italic">TBD</td>
+          <td><span class="ct-status-soon">Coming soon</span></td>
+          <td><a class="ct-link slides tbd">📊 Slides</a><a class="ct-link rec tbd">▶ Recording</a></td>
+        </tr>
+        <tr>
+          <td><span class="ct-tag">Session 3</span></td>
+          <td style="font-weight:600">Claude Code &amp; Building Agents</td>
+          <td style="color:var(--muted);font-style:italic">TBD</td>
+          <td><span class="ct-status-soon">Coming soon</span></td>
+          <td><a class="ct-link slides tbd">📊 Slides</a><a class="ct-link rec tbd">▶ Recording</a></td>
+        </tr>
+        <tr>
+          <td><span class="ct-tag">Session 4</span></td>
+          <td style="font-weight:600">Agentic Tools — Fraud Management</td>
+          <td style="color:var(--muted);font-style:italic">TBD</td>
+          <td><span class="ct-status-soon">Coming soon</span></td>
+          <td><a class="ct-link slides tbd">📊 Slides</a><a class="ct-link rec tbd">▶ Recording</a></td>
+        </tr>
+        <tr>
+          <td><span class="ct-tag cr">Credit Mgmt</span></td>
+          <td style="font-weight:600">Credit Management — Use Case Videos</td>
+          <td style="color:var(--muted);font-style:italic">TBD</td>
+          <td><span class="ct-status-soon">Coming soon</span></td>
+          <td><a class="ct-link rec tbd">▶ Videos</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div><!-- end page-content -->
+
+<!-- ═══════════════════════════════════════
+     PAGE: WHAT'S NEW
+═══════════════════════════════════════ -->
+<div class="page" id="page-whatsnew">
+  <div class="page-hero hero-wn">
+    <h2>What's New in AI</h2>
+    <p>The latest tools, research, and ideas relevant to Fraud &amp; ML and Credit Risk. Curated by the team, for the team.</p>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ✏️ EDIT: WHATS NEW CARDS — to add a new post, duplicate one .wn-card block and update the tag, title, date, description, and link -->
+    <div class="wn-grid">
+
+      <div class="wn-card">
+        <div class="wn-card-header">
+          <span class="wn-tag" style="background:#e6f0fb;color:#0c447c">Tool update</span>
+          <div class="wn-card-title">Claude 4 is now available on Cosmos</div>
+          <div class="wn-card-meta">June 2026 · AI Enablement team</div>
+        </div>
+        <div class="wn-card-body">
+          <div class="wn-card-desc">The latest Claude model is now available internally via the Cosmos AI Platform. Key improvements include extended context, stronger reasoning, and better code generation — relevant for DS and ML workflows.</div>
+          <a class="wn-card-link" href="#"><i class="ti ti-arrow-right" style="font-size:12px"></i> Read more</a>
+        </div>
+      </div>
+
+      <div class="wn-card">
+        <div class="wn-card-header">
+          <span class="wn-tag" style="background:#e0f4ee;color:#085041">Use case</span>
+          <div class="wn-card-title">How FraudScreener reduced review time by 40%</div>
+          <div class="wn-card-meta">May 2026 · Fraud &amp; ML team</div>
+        </div>
+        <div class="wn-card-body">
+          <div class="wn-card-desc">An internal case study on how the Fraud team used FraudScreener with an agentic AI layer to cut manual review time significantly in Q1 2026. Includes workflow diagrams and key learnings.</div>
+          <a class="wn-card-link" href="#"><i class="ti ti-arrow-right" style="font-size:12px"></i> Read more</a>
+        </div>
+      </div>
+
+      <div class="wn-card">
+        <div class="wn-card-header">
+          <span class="wn-tag" style="background:#fff3e6;color:#7a4500">Research</span>
+          <div class="wn-card-title">Anthropic releases new guidance on agentic AI safety</div>
+          <div class="wn-card-meta">June 2026 · External</div>
+        </div>
+        <div class="wn-card-body">
+          <div class="wn-card-desc">Anthropic published a new framework for deploying agentic AI safely in enterprise environments. Covers human-in-the-loop design, audit trails, and escalation protocols — directly applicable to our agent work.</div>
+          <a class="wn-card-link" href="#"><i class="ti ti-external-link" style="font-size:12px"></i> View external link</a>
+        </div>
+      </div>
+
+      <div class="wn-card">
+        <div class="wn-card-header">
+          <span class="wn-tag" style="background:#f0e8fb;color:#3d1a7a">Tip</span>
+          <div class="wn-card-title">5 prompting patterns every analyst should know</div>
+          <div class="wn-card-meta">May 2026 · AI Enablement team</div>
+        </div>
+        <div class="wn-card-body">
+          <div class="wn-card-desc">A practical guide to the five prompting patterns that consistently produce better results in analytical tasks — chain-of-thought, role assignment, output formatting, iterative refinement, and few-shot examples.</div>
+          <a class="wn-card-link" href="#"><i class="ti ti-arrow-right" style="font-size:12px"></i> Read more</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ✏️ EDIT: WHATS NEW CTA EMAIL — update the mailto and displayed address -->
+    <div class="wn-cta">
+      <div class="wn-cta-icon">💡</div>
+      <div style="flex:1">
+        <div class="wn-cta-title">Have an idea or AI use case to share?</div>
+        <div class="wn-cta-desc">If you've built something with AI, discovered a useful tool, or have an idea worth sharing with the Fraud &amp; ML and Credit Risk community — send it to the team. We review all submissions and publish the best ones here.</div>
+        <a class="wn-cta-btn" href="mailto:AIBootFraudCredit@paypal.com">
+          <i class="ti ti-mail" aria-hidden="true"></i> Send to AIBootFraudCredit@paypal.com
+        </a>
+        <div class="wn-cta-format">
+          <strong>Submission format:</strong> Please include —
+          <strong>Title</strong> ·
+          <strong>Category</strong> (tool update / use case / research / tip) ·
+          <strong>Summary</strong> (2–3 sentences) ·
+          <strong>Link or attachment</strong> if relevant ·
+          <strong>Your name</strong> for attribution
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end page-whatsnew -->
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+<footer class="site-footer">
+  <div>
+    <div class="footer-org">Fraud &amp; ML · Credit Risk · AI Enablement</div>
+    <div class="footer-sub">PayPal · 2026</div>
+  </div>
+  <!-- ✏️ EDIT: FOOTER EMAIL — update if contact email changes -->
+  <div class="footer-email">
+    Questions? <a href="mailto:AIBootFraudCredit@paypal.com">AIBootFraudCredit@paypal.com</a>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     NAVIGATION SCRIPT
+═══════════════════════════════════════ -->
+<script>
+function showPage(id, el) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Remove active from all nav links
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  // Show target page
+  document.getElementById('page-' + id).classList.add('active');
+  // Highlight nav link if provided
+  if (el) el.classList.add('active');
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
